@@ -24,7 +24,7 @@ repos:
     hooks:
     - id: mypy
       name: mypy
-      entry: docker compose exec -T backend mypy .
+      entry: mypy .
       language: system
       pass_filenames: false
       types: [python]
@@ -33,7 +33,7 @@ repos:
     hooks:
     - id: pylint
       name: pylint
-      entry: docker compose exec -T backend pylint .
+      entry: pylint .
       pass_filenames: false
       language: system
       types: [python]
@@ -42,7 +42,7 @@ repos:
     hooks:
     - id: tests
       name: tests
-      entry: docker compose exec -T backend python manage.py test
+      entry: python manage.py test
       pass_filenames: false
       language: system
       types: [python]
