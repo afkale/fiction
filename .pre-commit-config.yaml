@@ -33,6 +33,19 @@ repos:
     hooks:
     - id: pylint
       name: pylint
-      entry: pylint
+      entry: pylint .
+      pass_filenames: false
       language: system
       types: [python]
+
+  - repo: local
+    hooks:
+    - id: tests
+      name: tests
+      entry: uv run manage.py test
+      pass_filenames: false
+      language: system
+      types: [python]
+
+exclude: |
+  ^(tests|migrations|__pycache__|.venv)/.*$
