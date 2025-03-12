@@ -8,6 +8,12 @@ FROM python:${PYTHON_VERSION}-alpine${ALPINE_VERSION} AS builder
 
 WORKDIR /app
 
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    python3-dev \
+    mysql-dev
+
 # Copy and install dependencies
 COPY pyproject.toml /app
 RUN --mount=type=cache,target=/root/.cache/pip \
@@ -48,6 +54,12 @@ COPY --from=builder /usr/local/bin /usr/local/bin
 
 # Copy application code
 COPY --from=builder /app /app
+
+RUN apk add --no-cache \
+    gcc \
+    musl-dev \
+    python3-dev \
+    mysql-dev
 
 # Install development dependencies (if any)
 COPY pyproject.toml /app
