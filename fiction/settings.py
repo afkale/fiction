@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+from datetime import timedelta
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -24,12 +25,9 @@ SECRET_KEY = "django-insecure-kaa#lp_+w50y8s4to@8l@^&mdq*bq4jivgii_er-d@#n!#+^a%
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
 ALLOWED_HOSTS = ["*"]
 
-
 # Application definition
-
 DJANGO_APPS = [
     "django.contrib.admin",
     "django.contrib.auth",
@@ -39,12 +37,16 @@ DJANGO_APPS = [
     "django.contrib.staticfiles",
 ]
 
-LOCAL_APPS = []
-
 EXTERNAL_APPS = [
     "rest_framework",
     "rest_framework_simplejwt",
     "drf_spectacular",
+    "django_extensions",
+]
+
+LOCAL_APPS = [
+    "users",
+    "books",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + EXTERNAL_APPS + LOCAL_APPS
@@ -71,12 +73,36 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication"
     ],
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
+    "TEST_REQUEST_DEFAULT_FORMAT": "json",
+    "TEST_REQUEST_RENDERER_CLASSES": [
+        "rest_framework.renderers.JSONRenderer",
+        "rest_framework.renderers.MultiPartRenderer",
+        "rest_framework.renderers.TemplateHTMLRenderer",
+    ],
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(hours=12),
 }
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Fiction",
     "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": False,
+    "SERVE_INCLUDE_SCHEMA": True,
+    "SWAGGER_UI_SETTINGS": {
+        "persistAuthorization": True,
+    },
+    "TAGS": [
+        {"name": "docs", "description": "Operations related to API docs."},
+        {
+            "name": "token",
+            "description": "Operations related to authentication tokens.",
+        },
+        {"name": "users", "description": "Operations related to users management."},
+        {"name": "groups", "description": "Operations related to groups management."},
+        {"name": "books", "description": "Operations related to books."},
+        {"name": "pages", "description": "Operations related to book pages."},
+    ],
 }
 
 ROOT_URLCONF = "fiction.urls"
@@ -151,3 +177,4 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+AUTH_USER_MODEL = "users.User"
