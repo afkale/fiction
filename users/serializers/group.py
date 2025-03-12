@@ -10,4 +10,3 @@ class GroupSerializer(serializers.ModelSerializer[Group]):
 
         model = Group
         fields = ["id", "name"]  #
-
