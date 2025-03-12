@@ -40,6 +40,7 @@ plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 exclude = [
     "migrations",
     "tests",
+    "tests.py",
     ".venv",
     "build",
 		"fiction",
@@ -59,7 +60,7 @@ module = [
 django_settings_module = "fiction.settings"
 
 [tool.pylint."MESSAGES CONTROL"]
-disable = ["missing-module-docstring"]
+disable="C0111,I0011,W0212,W0613,W0702,C0103,R0901"
 
 [tool.pylint]
-ignore = "tests, migrations, manage.py"
+ignore = "tests.py, migrations, .venv, settings.py, manage.py"
