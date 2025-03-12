@@ -17,41 +17,48 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import include, path
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularRedocView,
+    SpectacularSwaggerView,
+)
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+    TokenVerifyView,
+)
 
-from rest_framework import routers
-from drf_spectacular import views as drfs_views
-from rest_framework_simplejwt import views as jwt_views
+from books.urls import router as book_router
+from users.urls import router as user_router
 
-from tutorial.quickstart import views as example_views
+# API Routers
+api_urls = [
+    path("", include(user_router.urls)),
+    path("", include(book_router.urls)),
+]
 
-
-router = routers.DefaultRouter()
-router.register(r"users", example_views.UserViewSet)
-router.register(r"groups", example_views.GroupViewSet)
-
+# Schema (Swagger & Redoc) URLs
 schema_urls = [
-    path("schema/", drfs_views.SpectacularAPIView.as_view(), name="schema"),
     path(
-        "docs/",
-        drfs_views.SpectacularSwaggerView.as_view(url_name="schema"),
+        "",
+        SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
-    path(
-        "redoc/",
-        drfs_views.SpectacularRedocView.as_view(url_name="schema"),
-        name="redoc",
-    ),
+    path("schema/", SpectacularAPIView.as_view(), name="schema"),
+    path("redoc/", SpectacularRedocView.as_view(url_name="schema"), name="redoc"),
 ]
 
+# JWT Authentication URLs
 token_urls = [
-    path("", jwt_views.TokenObtainPairView.as_view(), name="token_obtain_pair"),
-    path("refresh/", jwt_views.TokenRefreshView.as_view(), name="token_refresh"),
-    path("verify/", jwt_views.TokenVerifyView.as_view(), name="token_verify"),
+    path("", TokenObtainPairView.as_view(), name="token_obtain_pair"),
+    path("refresh/", TokenRefreshView.as_view(), name="token_refresh"),
+    path("verify/", TokenVerifyView.as_view(), name="token_verify"),
 ]
 
+# Main URL Patterns
 urlpatterns = [
     path("admin/", admin.site.urls),
-    path("api/", include(router.urls)),
-    path("api/", include(schema_urls)),
-    path("api/token/", include(token_urls)),
+    path("api/", include(api_urls)),  # Include local apps API routes
+    path("api/docs/", include(schema_urls)),  # Include local apps API routes
+    path("api/token/", include(token_urls)),  # Authentication endpoints
 ]
