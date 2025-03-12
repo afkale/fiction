@@ -2,13 +2,16 @@
 requires = ["pdm-backend"]
 build-backend = "pdm.backend"
 
+[tool.pdm]
+version = { source = "file", path = "." }
+
 [project]
 name = "fiction"
 version = "0.1.0"
 description = "Add your description here"
-readme = "README.md"
 requires-python = ">=3.12,<3.13"
 dependencies = [
+		"mysqlclient>=2.2.7",
     "django>=5.1.7",
     "django-extensions>=3.2.3",
     "django-filter>=25.1",
@@ -29,9 +32,6 @@ dev = [
     "djangorestframework-stubs[compatible-mypy]>=3.15.3",
 ]
 
-[tool.pdm]
-version = { source = "file", path = "." }
-
 [tool.ruff]
 lint.extend-select = ["I"]
 
@@ -39,12 +39,11 @@ lint.extend-select = ["I"]
 plugins = ["mypy_django_plugin.main", "mypy_drf_plugin.main"]
 exclude = [
     "migrations",
-    "tests",
-    "tests.py",
     ".venv",
     "build",
 		"fiction",
-		"manage.py"
+		"manage.py",
+    "tests.py",
 ]
 strict = true
 disallow_subclassing_any = false
@@ -59,8 +58,8 @@ module = [
 [tool.django-stubs]
 django_settings_module = "fiction.settings"
 
-[tool.pylint."MESSAGES CONTROL"]
-disable="C0111,I0011,W0212,W0613,W0702,C0103,R0901"
-
 [tool.pylint]
 ignore = "tests.py, migrations, .venv, settings.py, manage.py"
+
+[tool.pylint."MESSAGES CONTROL"]
+disable="C0111,I0011,W0212,W0613,W0702,C0103,R0901"
