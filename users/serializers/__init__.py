@@ -1,4 +1,4 @@
 __all__ = ["UserSerializer", "GroupSerializer"]
 
-from .group import GroupSerializer
-from .user import UserSerializer
+from .group_serializers import GroupSerializer
+from .user_serializers import UserSerializer
