@@ -30,7 +30,7 @@ jobs:
 
       - name: Login to Amazon ECR
         run: |
-          aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin 324037305789.dkr.ecr.eu-north-1.amazonaws.com
+          aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin 324037305789.dkr.ecr.eu-north-1.amazonaws.com
 
       - name: Extract Tag Name
         id: extract_tag
@@ -48,7 +48,7 @@ jobs:
       # Configure Kubernetes for AWS EKS
       - name: Configure kubectl
         run: |
-          aws eks update-kubeconfig --region us-east-1 --name fiction-express
+          aws eks update-kubeconfig --region eu-north-1 --name fiction-express
 
       # Deploy Application to EKS
       - name: Deploy to EKS
