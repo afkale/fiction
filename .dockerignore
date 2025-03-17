@@ -1,0 +1,4 @@
+.venv
+tags
+schema.yml
+uv.lock
