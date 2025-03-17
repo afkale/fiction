@@ -42,8 +42,8 @@ jobs:
       # Build and Push Docker Image
       - name: Build and Push Docker Image
         run: |
-          docker build -t 324037305789.dkr.ecr.eu-north-1.amazonaws.com:latest \
-            -t 324037305789.dkr.ecr.eu-north-1.amazonaws.com:${{ steps.extract_tag.outputs.tag_name }} .
+          docker build -t 324037305789.dkr.ecr.eu-north-1.amazonaws.com/fiction:latest \
+            -t 324037305789.dkr.ecr.eu-north-1.amazonaws.com/fiction:${{ steps.extract_tag.outputs.tag_name }} .
 
       # Configure Kubernetes for AWS EKS
       - name: Configure kubectl
