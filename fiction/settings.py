@@ -134,11 +134,11 @@ WSGI_APPLICATION = "fiction.wsgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.mysql",
-        "NAME": os.getenv("DB_NAME", "fiction"),
-        "USER": os.getenv("DB_USER", "fiction"),
-        "PASSWORD": os.getenv("DB_PASSWORD", "express"),
-        "HOST": os.getenv("DB_HOST", "localhost"),
-        "PORT": os.getenv("DB_PORT", "3306"),
+        "NAME": os.getenv("MYSQL_NAME", "fiction"),
+        "USER": os.getenv("MYSQL_USER", "fiction"),
+        "PASSWORD": os.getenv("MYSQL_PASSWORD", "express"),
+        "HOST": os.getenv("MYSQL_HOST", "localhost"),
+        "PORT": os.getenv("MYSQL_PORT", "3306"),
     },
 }
 
