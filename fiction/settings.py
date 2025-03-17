@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 import os
 import sys
 from datetime import timedelta
+from importlib.metadata import version
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -95,7 +96,7 @@ SIMPLE_JWT = {
 
 SPECTACULAR_SETTINGS = {
     "TITLE": "Fiction",
-    "VERSION": "1.0.0",
+    "VERSION": version("fiction"),
     "SERVE_INCLUDE_SCHEMA": True,
     "SWAGGER_UI_SETTINGS": {
         "persistAuthorization": True,
