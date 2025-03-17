@@ -4,7 +4,7 @@ from books.models import Book, Page
 
 
 class _BookPageSerializer(serializers.ModelSerializer[Page]):
-    """Book page general serializer."""
+    """Private book page serializer."""
 
     class Meta:  # pylint: disable=too-few-public-methods
         """Book page serializer meta configuration."""
@@ -14,7 +14,7 @@ class _BookPageSerializer(serializers.ModelSerializer[Page]):
 
 
 class BookSerializer(serializers.ModelSerializer[Book]):
-    """Book general serializer."""
+    """Book serializer."""
 
     pages = _BookPageSerializer(many=True, read_only=True)
 

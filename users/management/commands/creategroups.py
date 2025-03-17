@@ -9,7 +9,7 @@ from fiction.permissions import GROUPS_PERMISSIONS
 class Command(BaseCommand):
     """This command will create all the required groups and permissions."""
 
-    help = "Creates or updates default user groups with permissions."
+    help = "Creates and updates the default groups and permissions."
 
     def handle(self, *args: Any, **kwargs: Any) -> None:  # pylint: disable=unused-argument
         ok = self.style.SUCCESS("[OK]")  # pylint: disable=no-member
