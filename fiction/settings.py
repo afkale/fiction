@@ -149,7 +149,7 @@ DATABASES = {
     },
 }
 
-if "test" in sys.argv or "test_coverage" in sys.argv:
+if "test" in sys.argv or "test_coverage" in sys.argv or "mypy" in sys.argv[0]:
     DATABASES = {
         "default": {
             "ENGINE": "django.db.backends.sqlite3",
